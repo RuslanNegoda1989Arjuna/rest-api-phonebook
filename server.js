@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 mongoose.set('strictQuery', false);
 
-const {DB_HOST} = require("./config")
+const {DB_HOST} = process.env
 
 // const DB_HOST = "mongodb+srv://Arjuna:6xXXEQMhMqq1BXqV@cluster0.uaxuicn.mongodb.net/phoneBook?retryWrites=true&w=majority";
 
