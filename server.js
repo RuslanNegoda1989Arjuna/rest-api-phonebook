@@ -6,13 +6,22 @@ const mongoose = require("mongoose");
 
 mongoose.set('strictQuery', false);
 
-const DB_HOST = "mongodb+srv://Arjuna:6xXXEQMhMqq1BXqV@cluster0.uaxuicn.mongodb.net/phoneBook?retryWrites=true&w=majority";
+const {DB_HOST} = require("./config")
 
-mongoose.connect(DB_HOST).then(() => console.log("Database connect success")).catch(error => console.log(error.message));
+// const DB_HOST = "mongodb+srv://Arjuna:6xXXEQMhMqq1BXqV@cluster0.uaxuicn.mongodb.net/phoneBook?retryWrites=true&w=majority";
 
-app.listen(PORT, () => {
-  console.log(`Server running. Use our API on port: ${PORT}`)
+mongoose.connect(DB_HOST)
+  .then(() => app.listen(PORT, () => {
+    console.log(`Server running. Use our API on port: ${PORT}`)
+  }))
+  .catch(error => {
+    console.log(error.message);
+    process.exit(1);
 });
+
+// app.listen(PORT, () => {
+//   console.log(`Server running. Use our API on port: ${PORT}`)
+// });
 
 
 // 6xXXEQMhMqq1BXqV
