@@ -1,42 +1,24 @@
 const express = require('express');
 
+const ctrl = require("../../controllers/contacts");
+
 const {contactValidation, putContactValidation} = require("../../schemas/validation.js")
 
-const {
-  listContacts,
-  getContactById,
-  removeContact,
-  addContact,
-  updateContact,
-} = require("../../models/contacts.js");
+// const {
+//   listContacts,
+//   getContactById,
+//   removeContact,
+//   addContact,
+//   updateContact,
+// } = require("../../models/contacts.js");
 
 const { HttpError } = require("../../helpers");
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  try {
-     res.json(await listContacts())
-  } catch (error) {
-    next(error)
-  }
+router.get('/', ctrl.getAll)
 
-})
-
-router.get('/:contactId', async (req, res, next) => {
-  try {
-    const { contactId } = req.params;
-  const getContId = await getContactById(contactId);
-    if (!getContId) {
-      throw HttpError(404, "Not found 🛑 ");
-
-  }
-  res.json(getContId)
-  } catch (error) {
-    next(error)
-  }
-  
-})
+router.get('/:contactId', ctrl.getById)
 
 router.post('/', contactValidation, async (req, res, next) => {
   try {
