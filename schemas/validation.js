@@ -10,6 +10,7 @@ module.exports = {
             tlds: { allow: ['com', 'net', 'ua']},
         }).required(),
         phone: Joi.string().required(),
+        favorite: Joi.boolean(),
     });
 
     const {error} = schema.validate(req.body);
@@ -28,6 +29,19 @@ module.exports = {
               tlds: { allow: ["com", "net", "ua"] },
             }),
           phone: Joi.string(),
+          favorite: Joi.boolean(),
+        });
+
+    const {error} = schema.validate(req.body);
+    if (error) {
+        throw HttpError(400, error.message);
+    }
+        next();
+  },
+   
+   patchFavoriteValidation: (req, res, next) => {
+      const schema = Joi.object({
+         favorite: Joi.boolean().required()
         });
 
     const {error} = schema.validate(req.body);
@@ -37,3 +51,4 @@ module.exports = {
         next();
   }
 }
+
