@@ -9,7 +9,7 @@ module.exports = {
             minDomainSegments: 2,
             tlds: { allow: ['com', 'net', 'ua']},
         }).required(),
-        phone: Joi.number().min(7).required(),
+        phone: Joi.string().required(),
     });
 
     const {error} = schema.validate(req.body);
@@ -27,7 +27,7 @@ module.exports = {
               minDomainSegments: 2,
               tlds: { allow: ["com", "net", "ua"] },
             }),
-          phone: Joi.number().optional(),
+          phone: Joi.string(),
         });
 
     const {error} = schema.validate(req.body);
