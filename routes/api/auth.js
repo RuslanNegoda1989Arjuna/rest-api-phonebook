@@ -1,9 +1,19 @@
 const express = require('express');
 
-const ctrl = require("../../controllers/contacts");
+const { validateBody } = require("../../middlewares");
+const { schemas } = require("../../models/user");
 
-const {isValidId} = require("../../middlewares")
+// const ctrl = require("../../controllers/contacts");
 
-const {contactValidation, putContactValidation, patchFavoriteValidation} = require("../../schemas/validation.js")
+// const {isValidId} = require("../../middlewares")
+
+// const {contactValidation, putContactValidation, patchFavoriteValidation} = require("../../schemas/validation.js")
 
 const router = express.Router();
+
+
+
+// signup
+router.post('/register', validateBody(schemas.registerSchema))
+
+module.exports = router;
