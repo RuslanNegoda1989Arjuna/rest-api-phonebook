@@ -13,6 +13,8 @@ const userSchema = new Schema({
     email: {
         type: String,
         match: emailRegexp,
+        // перевіряєм чи немає вже такого обєкту з таким email
+        unique: true,
         required: true,
     },
     password: {
