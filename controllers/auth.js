@@ -1,7 +1,10 @@
 const { User } = require('../models/user');
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const { HttpError, ctrlWrapper } = require('../helpers');
+
+const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
     // для кастумного відображення помилки що email вже є
@@ -33,7 +36,12 @@ const login = async (req, res) => {
     if (!passwordCompare) {
         throw HttpError(401, "Email or password invalid");
     }
-    const token = "assdasasdasd.asdasdasdasd.asdasdasd";
+
+    const payload = {
+        id: user._id,
+    }
+  
+    const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "24h"});
 
     res.json({
         token,
