@@ -15,12 +15,12 @@ const userSchema = new Schema({
         match: emailRegexp,
         // перевіряєм чи немає вже такого обєкту з таким email
         unique: true,
-        required: true,
+        required: [true, 'Email is required']
     },
     password: {
         type: String,
         minlength: 6,
-        required: true,
+        required: [true, 'Set password for user']
     }
 
 }, { versionKey: false, timestamps: true });
