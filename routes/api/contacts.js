@@ -2,7 +2,7 @@ const express = require('express');
 
 const ctrl = require("../../controllers/contacts");
 
-const {isValidId} = require("../../middlewares")
+const {isValidId, authenticate} = require("../../middlewares")
 
 const { contactValidation, putContactValidation, patchFavoriteValidation } = require("../../schemas/validation.js")
 
@@ -10,17 +10,17 @@ const { contactValidation, putContactValidation, patchFavoriteValidation } = req
 
 const router = express.Router();
 
-router.get('/', ctrl.getAll)
+router.get('/', authenticate, ctrl.getAll)
 
-router.get('/:contactId', isValidId, ctrl.getById)
+router.get('/:contactId', authenticate, isValidId, ctrl.getById)
 
-router.post('/', contactValidation, ctrl.add)
+router.post('/', authenticate, contactValidation, ctrl.add)
 
-router.delete('/:contactId', isValidId, ctrl.deleteById)
+router.delete('/:contactId', authenticate, isValidId, ctrl.deleteById)
 
-router.put('/:contactId', isValidId, putContactValidation, ctrl.updateById)
+router.put('/:contactId', authenticate, isValidId, putContactValidation, ctrl.updateById)
 
-router.patch('/:contactId/favorite', isValidId, patchFavoriteValidation, ctrl.updateFavorite)
+router.patch('/:contactId/favorite', authenticate, isValidId, patchFavoriteValidation, ctrl.updateFavorite)
 
 module.exports = router
 
