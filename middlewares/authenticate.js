@@ -1,5 +1,5 @@
 
-cosnt jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const { HttpError } = require("../helpers");
 
 const authenticate = (req, res, next) => {
