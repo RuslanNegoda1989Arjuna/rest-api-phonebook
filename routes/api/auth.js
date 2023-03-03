@@ -5,10 +5,6 @@ const { schemas } = require("../../models/user");
 
 const ctrl = require("../../controllers/auth");
 
-// const {isValidId} = require("../../middlewares")
-
-// const {contactValidation, putContactValidation, patchFavoriteValidation} = require("../../schemas/validation.js")
-
 const router = express.Router();
 
 
