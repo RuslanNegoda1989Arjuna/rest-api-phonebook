@@ -3,7 +3,9 @@ const { HttpError, ctrlWrapper } = require("../helpers");
 
 const getAll = async (req, res) => {
     const { _id: owner } = req.user;
-    res.json(await Contact.find({owner}, "-createdAt -updatedAt"));
+    const result = await Contact.find({ owner },  "-createdAt -updatedAt").populate("owner", "name email");
+    res.json(result);
+    // populate() - використовується для розширення запиту
 }
 
 
@@ -18,8 +20,8 @@ const getById = async (req, res) => {
 }
 
 const add = async (req, res) => { 
-    const {_id: owner} = req.user
-    const result = await Contact.create(...req.body, owner);
+    const { _id: owner } = req.user;
+    const result = await Contact.create({...req.body, owner});
     res.status(201).json(result);
 }
 const updateById = async (req, res) => {
