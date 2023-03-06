@@ -19,10 +19,5 @@ mongoose.connect(DB_HOST)
     process.exit(1);
 });
 
-// app.listen(PORT, () => {
-//   console.log(`Server running. Use our API on port: ${PORT}`)
-// });
-
-
 // 6xXXEQMhMqq1BXqV
 

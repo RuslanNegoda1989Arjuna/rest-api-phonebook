@@ -1,12 +1,11 @@
 const express = require('express');
 
-const ctrl = require("../../controllers/contacts");
+const {contacts: ctrl} = require("../../controllers");
 
 const {isValidId, authenticate} = require("../../middlewares")
 
 const { contactValidation, putContactValidation, patchFavoriteValidation } = require("../../schemas/validation.js")
 
-// const { schemas } = require("../../models/user");
 
 const router = express.Router();
 
