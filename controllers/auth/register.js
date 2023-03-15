@@ -1,6 +1,8 @@
 const { User } = require('../../models/user');
 const bcrypt = require("bcrypt");
-const { HttpError} = require('../../helpers');
+const { HttpError } = require('../../helpers');
+const gravatar = require("gravatar");
+
 
 const register = async (req, res) => {
     // для кастумного відображення помилки що email вже є
@@ -13,7 +15,9 @@ const register = async (req, res) => {
     // ===========================
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({...req.body, password: hashPassword});
+    const avatarURL = gravatar.url(email, {s: '250', f: 'y'});
+
+    const newUser = await User.create({...req.body, password: hashPassword, avatarURL});
 
     res.status(201).json({
         email: newUser.email,
