@@ -1,7 +1,9 @@
 const { User } = require('../../models/user');
 const bcrypt = require("bcrypt");
-const { HttpError } = require('../../helpers');
+const { HttpError, sendEmail } = require('../../helpers');
 const gravatar = require("gravatar");
+const { nanoid } = require("nanoid");
+const { BASE_URL } = process.env;
 
 
 const register = async (req, res) => {
@@ -15,9 +17,18 @@ const register = async (req, res) => {
     // ===========================
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const avatarURL = gravatar.url(email, {s: '250', f: 'y'});
+    const avatarURL = gravatar.url(email, { s: '250', f: 'y' });
+    const verificationCode = nanoid();
 
-    const newUser = await User.create({...req.body, password: hashPassword, avatarURL});
+    const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationCode });
+    
+    const verifyEmail = {
+        to: email,
+        subject: "Veryfy email",
+        html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationCode}">Click verify email</a>`,
+    };
+
+    await sendEmail(verifyEmail);
 
     res.status(201).json({
         email: newUser.email,
